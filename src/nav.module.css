@@ -1,0 +1,13 @@
+.noti::before {
+    content: "NEW";
+    background-color: red;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100px;
+    height: 100px;
+}
+
+.bef {
+    position: relative;
+}
