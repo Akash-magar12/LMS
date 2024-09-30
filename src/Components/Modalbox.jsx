@@ -2,8 +2,8 @@ import React from "react";
 
 const Modalbox = ({ handleClose = { handleClose } }) => {
   return (
-    <div className="w-[45rem] rounded-md fixed top-[55%]  left-[57%] -translate-x-1/2 -translate-y-1/2 bg-white">
-      <div className="w-full  ">
+    <div className="w-[20rem]  lg:w-[45rem] rounded-md fixed top-[50%] left-[50%] lg:top-[55%]  lg:left-[57%] -translate-x-1/2 -translate-y-1/2 bg-white">
+      <div className="w-full h-full  ">
         <div className="shadow-sm  px-4 py-3">
           <h3 className="text-sm">BSPLModule_2</h3>
         </div>
@@ -27,7 +27,7 @@ const Modalbox = ({ handleClose = { handleClose } }) => {
           <div className="w-full flex items-center bg-[#F1F5FF] h-10">
             <p className="pl-2 text-sm">Introduction to Python</p>
           </div>
-          <div className="w-full flex items-center bg-[#F1F5FF] h-10">
+          <div className="w-full hidden lg:flex items-center bg-[#F1F5FF] h-10">
             <p className="pl-2 text-sm">Syntax</p>
           </div>
           <div className="w-full flex items-center bg-[#F1F5FF] h-10">

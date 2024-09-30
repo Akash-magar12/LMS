@@ -178,37 +178,90 @@ function Content() {
   }
   const [data, setData] = useState(datas);
   const [input, setInput] = useState("");
-  let inpLowecase = input.toLowerCase();
+  let inpLowercase = input.toLowerCase();
+  console.log("data: " + data);
+
+  function Search() {
+    console.log("carts------", datas);
+
+    let carts = datas.filter((val) => {
+      let keys = Object.keys(val);
+
+      for (let i = 0; i < keys.length; i++) {
+        let keyArr = keys[i];
+
+        // Check if the value is an object, like 'topics', 'title', etc.
+        if (typeof val[keyArr] === "object" && val[keyArr] !== null) {
+          let nestedKeys = Object.keys(val[keyArr]);
+
+          for (let j = 0; j < nestedKeys.length; j++) {
+            let nestedKey = nestedKeys[j];
+            // Compare the nested values with inpLowercase
+            if (
+              String(val[keyArr][nestedKey])
+                .toLowerCase()
+                .includes(inpLowercase)
+            ) {
+              return true; // Return true if any nested value matches
+            }
+          }
+        } else {
+          // Compare the top-level values with inpLowercase
+          if (String(val[keyArr]).toLowerCase().includes(inpLowercase)) {
+            return true; // Return true if top-level value matches
+          }
+        }
+      }
+      return false; // Return false if no match found
+    });
+
+    console.log("Filtered carts: ", carts);
+    setData(carts);
+  }
+
+  // Trigger Search on input change
+  useEffect(() => {
+    Search();
+  }, [input]);
 
   // function Search() {
+  //   console.log("carts------", datas);
   //   let carts = datas.filter((val) => {
+  //     console.log("val", val);
   //     let keys = Object.keys(val);
+  //     console.log("keys=====", keys);
   //     for (let i = 0; i < keys.length; i++) {
   //       let keyArr = keys[i];
-  //       return String(val[keyArr]).toLowerCase().includes(inpLowecase) === true;
+  //       console.log("keyArrrr", keyArr);
+  //       console.log("key: " + String(val[keyArr]).toLowerCase(), inpLowecase);
+  //       if (String(val[keyArr]).toLowerCase().includes(inpLowecase)) {
+  //         console.log("vallll", val);
+  //         return val;
+  //       }
   //     }
+  //   });
+  //   setData(carts);
+  //   console.log("cssss--------", carts);
+  //   // console.log(carts);
+  // }
+
+  // function Search() {
+  //   const carts = datas.filter((val) => {
+  //     return Object.values(val).some((value) =>
+  //       typeof value === "object"
+  //         ? Object.values(value).some((nestedValue) =>
+  //             String(nestedValue).toLowerCase().includes(inpLowecase)
+  //           )
+  //         : String(value).toLowerCase().includes(inpLowecase)
+  //     );
   //   });
   //   setData(carts);
   //   console.log(carts);
   // }
 
-  function Search() {
-    const carts = datas.filter((val) => {
-      return Object.values(val).some((value) =>
-        typeof value === "object"
-          ? Object.values(value).some((nestedValue) =>
-              String(nestedValue).toLowerCase().includes(inpLowecase)
-            )
-          : String(value).toLowerCase().includes(inpLowecase)
-      );
-    });
-    setData(carts);
-    console.log(carts);
-  }
-
-  useEffect(() => {
-    Search();
-  }, [input]);
+  // useEffect(() => {
+  //   Search();
+  // }, [input]);
   return (
     <div className=" lg:w-[85%]  w-full   pl-4 py-5 lg:py-0">
       <div className="flex w-72 py-2 rounded-2xl justify-between px-4 bg-white items-center">
